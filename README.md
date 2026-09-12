@@ -18,7 +18,7 @@ Bu depo; farklı model sürümlerinin, Colab/Drive eğitim artefaktlarının, Gi
 | Car Evaluation ML | completed | Decision Tree test accuracy %98.55 |
 | Turkish BPE Tokenizer | trained tokenizer | 128k vocab, ~150k Türkçe Wikipedia makalesi |
 
-Tam liste: [`MODEL_INDEX.md`](MODEL_INDEX.md) · Deneyler: [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) · Makine-okunur envanter: [`benchmarks/model_inventory.csv`](benchmarks/model_inventory.csv)
+Tam liste: [`MODEL_INDEX.md`](MODEL_INDEX.md) · Deneyler: [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) · Drive/Colab envanteri: [`DRIVE_ARTIFACT_INDEX.md`](DRIVE_ARTIFACT_INDEX.md) · Makine-okunur envanter: [`benchmarks/model_inventory.csv`](benchmarks/model_inventory.csv)
 
 ## Bigg 50M — JEPA legacy vs off
 
@@ -39,6 +39,7 @@ Drive'da doğrulanan büyük checkpoint/model dosyalarının varlığı, boyutu 
 
 - [`MODEL_INDEX.md`](MODEL_INDEX.md) — kayıtlı modeller ve sürümler
 - [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) — deney listesi ve durumları
+- [`DRIVE_ARTIFACT_INDEX.md`](DRIVE_ARTIFACT_INDEX.md) — sanitize edilmiş Drive/Colab artefakt envanteri
 - [`models/`](models/) — model/sürüm kartları
 - [`experiments/`](experiments/) — deney konfigürasyonları, ham/özet sonuçlar ve analizler
 - [`benchmarks/`](benchmarks/) — karşılaştırma ve envanter tabloları
