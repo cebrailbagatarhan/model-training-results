@@ -1,0 +1,4 @@
+model,variant,experiment,status,seed,budget_type,budget_value_s,test_nll,test_perplexity,tokens_per_second,peak_allocated_gb
+Bigg,50M JEPA off,bigg-50m-jepa-vs-off,completed,42,wall_clock,600,5.607873,272.563981,8584.660271,1.470829
+Bigg,50M legacy JEPA,bigg-50m-jepa-vs-off,completed,42,wall_clock,600,5.837443,342.901316,6607.764377,1.679554
+Bigg,50M V4.1-Flash-inspired,bigg-50m-v41-flash,pending,42,wall_clock,600,,,,
