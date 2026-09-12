@@ -1,0 +1,36 @@
+experiment: bigg-50m-jepa-vs-off
+date: 2026-09-12
+model_family: Bigg
+size: 50M
+modes:
+  - off
+  - legacy
+seeds: [42]
+budget:
+  type: time
+  seconds_per_mode: 600
+sequence_length: 256
+vocab_size: 16384
+tokenizer: byte-level BPE
+data:
+  language: Turkish
+  real_documents: 12000
+  train_tokens: 6000000
+  validation_tokens: 150000
+  test_tokens: 150000
+training:
+  micro_batch: 4
+  accumulation: 4
+  jepa_coef: 0.1
+  ema_decay: 0.996
+comparison_rule: equal wall-clock
+metrics:
+  - validation_nll
+  - validation_perplexity
+  - test_nll
+  - test_perplexity
+  - tokens_per_second
+  - peak_allocated_gb
+notes:
+  - legacy uses the tested pooled-context/random-target JEPA objective
+  - single-seed pilot; replication is required for stronger claims
