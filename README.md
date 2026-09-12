@@ -6,6 +6,22 @@ Bu depo; GitHub, Google Drive ve Colab üzerinde dağınık duran model eğitiml
   <img src="assets/model-results-overview.svg" width="100%" alt="Model eğitimleri ve deney sonuçları görsel özeti" />
 </p>
 
+## Görsel sonuç galerisi
+
+Her ana model/çalışma için ayrı sonuç kartı hazırladık. Kartlar sadece sonucu değil, **sonucun güvenilirlik seviyesini ve ne anlama geldiğini** de gösteriyor.
+
+| Bigg 50M | Turkish Qwen2.5-7B QLoRA |
+|---|---|
+| [![Bigg 50M](assets/model-cards/bigg-50m.svg)](MODEL_VISUALS.md) | [![Qwen2.5-7B QLoRA](assets/model-cards/turkish-qwen2.5-7b-qlora.svg)](MODEL_VISUALS.md) |
+| **Turkmodel 6.08B** | **ModernLLM-Large 1.129B** |
+| [![Turkmodel](assets/model-cards/turkmodel-6.08b.svg)](MODEL_VISUALS.md) | [![ModernLLM](assets/model-cards/modernllm-large.svg)](MODEL_VISUALS.md) |
+| **Ouroboros-Mini** | **nanochat Windows CPU** |
+| [![Ouroboros](assets/model-cards/ouroboros-mini.svg)](MODEL_VISUALS.md) | [![nanochat](assets/model-cards/nanochat-windows-cpu.svg)](MODEL_VISUALS.md) |
+| **Car Evaluation ML** | **Turkish BPE Tokenizer 128k** |
+| [![Car Evaluation](assets/model-cards/car-evaluation-ml.svg)](MODEL_VISUALS.md) | [![Turkish Tokenizer](assets/model-cards/turkish-tokenizer-128k.svg)](MODEL_VISUALS.md) |
+
+➡️ [`MODEL_VISUALS.md`](MODEL_VISUALS.md) — tüm kartlar, açıklamalar ve ilgili deney bağlantıları.
+
 ## Kısaca ne yaptık?
 
 Farklı zamanlarda yapılmış model eğitimlerini ve deneyleri taradık; hangi modelin kullanıldığını, donanımı, eğitim bütçesini, görülebilen metrikleri ve deneyin gerçekten ne kadar tamamlanmış olduğunu ayırdık. Sonra bunları ortak bir yapıya taşıdık.
@@ -61,7 +77,7 @@ Kaynak ve deney: [`models/modernllm-large/`](models/modernllm-large/) · [`exper
 | Car Evaluation ML | completed | Decision Tree test accuracy %98.55 |
 | Turkish BPE Tokenizer | trained tokenizer | 128k vocab; benchmark yok |
 
-Tam liste: [`MODEL_INDEX.md`](MODEL_INDEX.md) · Deneyler: [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) · Kaynaklar: [`DRIVE_ARTIFACT_INDEX.md`](DRIVE_ARTIFACT_INDEX.md) · Makine-okunur envanter: [`benchmarks/model_inventory.csv`](benchmarks/model_inventory.csv)
+Tam liste: [`MODEL_INDEX.md`](MODEL_INDEX.md) · Deneyler: [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) · Görseller: [`MODEL_VISUALS.md`](MODEL_VISUALS.md) · Kaynaklar: [`DRIVE_ARTIFACT_INDEX.md`](DRIVE_ARTIFACT_INDEX.md) · Makine-okunur envanter: [`benchmarks/model_inventory.csv`](benchmarks/model_inventory.csv)
 
 ## Repo nasıl okunmalı?
 
@@ -73,7 +89,8 @@ model-training-results/
 ├── datasets/        # Veri kaynakları ve split notları
 ├── environments/    # GPU / CUDA / PyTorch / ortam bilgileri
 ├── methodology/     # Değerlendirme ve tekrar üretilebilirlik kuralları
-├── assets/          # Görsel özetler
+├── assets/          # Genel görsel + model bazlı sonuç kartları
+├── MODEL_VISUALS.md # Görsel sonuç galerisi
 └── *_INDEX.md       # Model, deney ve kaynak indeksleri
 ```
 
