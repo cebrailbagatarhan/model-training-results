@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Model Eğitimleri, Deneyler ve Sonuçlar</title>
+  <desc id="desc">GitHub, Drive ve Colab üzerindeki model deneylerinin özet görselleştirmesi.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="0.55" stop-color="#111b38"/>
+      <stop offset="1" stop-color="#26154a"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#34d399"/><stop offset="1" stop-color="#14b8a6"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.28"/></filter>
+    <style>
+      .t{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#f8fafc}.m{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#cbd5e1}.dim{fill:#94a3b8}.card{fill:#0f172a;stroke:#334155;stroke-width:1}.small{font-size:16px}.tiny{font-size:14px}.label{font-size:18px;font-weight:700}.h{font-size:24px;font-weight:800}.big{font-size:42px;font-weight:900}
+    </style>
+  </defs>
+  <rect width="1200" height="760" rx="28" fill="url(#bg)"/>
+  <circle cx="1080" cy="76" r="110" fill="#4f46e5" opacity="0.16"/><circle cx="1015" cy="90" r="65" fill="#06b6d4" opacity="0.12"/>
+
+  <text x="54" y="68" class="t big">Model Eğitimleri, Deneyler ve Sonuçlar</text>
+  <text x="56" y="101" class="m" font-size="20">Dağınık GitHub + Drive + Colab deneylerini tek, karşılaştırılabilir arşivde topladık.</text>
+
+  <!-- workflow -->
+  <g filter="url(#shadow)">
+    <rect x="54" y="132" width="1092" height="108" rx="18" class="card"/>
+  </g>
+  <text x="78" y="166" class="t h">Ne yaptık?</text>
+  <rect x="80" y="184" width="260" height="34" rx="17" fill="#0c4a6e"/><text x="105" y="207" class="t small">1 · Kaynakları taradık</text>
+  <path d="M350 201 H414" stroke="#64748b" stroke-width="3"/><path d="M404 193 L416 201 L404 209" fill="none" stroke="#64748b" stroke-width="3"/>
+  <rect x="430" y="184" width="290" height="34" rx="17" fill="#064e3b"/><text x="455" y="207" class="t small">2 · Metrikleri ayırdık</text>
+  <path d="M730 201 H794" stroke="#64748b" stroke-width="3"/><path d="M784 193 L796 201 L784 209" fill="none" stroke="#64748b" stroke-width="3"/>
+  <rect x="812" y="184" width="300" height="34" rx="17" fill="#4c1d95"/><text x="837" y="207" class="t small">3 · Sonuçları tek repoda topladık</text>
+
+  <!-- Bigg card -->
+  <g filter="url(#shadow)"><rect x="54" y="268" width="356" height="240" rx="18" class="card"/></g>
+  <rect x="54" y="268" width="356" height="8" rx="4" fill="url(#blue)"/>
+  <text x="78" y="310" class="t h">Bigg 50M</text><text x="78" y="337" class="m small">JEPA off vs legacy · 600 sn eşit süre</text>
+  <text x="78" y="374" class="t label">Test PPL ↓</text>
+  <rect x="82" y="410" width="108" height="62" rx="7" fill="#0ea5e9"/><text x="101" y="447" class="t label">272.56</text><text x="102" y="492" class="m tiny">JEPA off</text>
+  <rect x="224" y="389" width="108" height="83" rx="7" fill="#64748b"/><text x="241" y="433" class="t label">342.90</text><text x="238" y="492" class="m tiny">legacy</text>
+  <text x="78" y="401" class="dim tiny">Daha düşük daha iyi</text>
+  <text x="78" y="530" class="t label">Sonuç: off ≈ %20.5 daha düşük PPL</text>
+
+  <!-- Qwen card -->
+  <g filter="url(#shadow)"><rect x="430" y="268" width="356" height="240" rx="18" class="card"/></g>
+  <rect x="430" y="268" width="356" height="8" rx="4" fill="url(#green)"/>
+  <text x="454" y="310" class="t h">Qwen2.5-7B QLoRA</text><text x="454" y="337" class="m small">Türkçe SFT · 200 step · held-out eval yok</text>
+  <polyline points="462,399 496,382 530,371 564,376 598,366 632,368 666,363 700,361 744,360" fill="none" stroke="#34d399" stroke-width="4"/>
+  <line x1="462" y1="455" x2="744" y2="455" stroke="#334155"/><line x1="462" y1="365" x2="462" y2="455" stroke="#334155"/>
+  <text x="454" y="382" class="dim tiny">training loss eğrisi (özet)</text>
+  <rect x="620" y="417" width="124" height="30" rx="15" fill="#065f46"/><text x="641" y="438" class="t small">avg 0.9459</text>
+  <text x="454" y="482" class="m tiny">Final adapter/checkpoint kaynakta; bu repo kopyalamıyor.</text>
+  <text x="454" y="530" class="t label">Sonuç: eğitim tamamlandı, kalite iddiası için eval gerekli</text>
+
+  <!-- Turkmodel card -->
+  <g filter="url(#shadow)"><rect x="806" y="268" width="340" height="240" rx="18" class="card"/></g>
+  <rect x="806" y="268" width="340" height="8" rx="4" fill="url(#purple)"/>
+  <text x="830" y="310" class="t h">Turkmodel 6.08B</text><text x="830" y="337" class="m small">1× H100 80GB · kısa PoC</text>
+  <text x="830" y="380" class="dim tiny">400 step</text><text x="830" y="413" class="t label">13.1M token</text>
+  <text x="830" y="448" class="dim tiny">final training loss</text><text x="830" y="482" class="t" font-size="30" font-weight="900">4.78736</text>
+  <text x="830" y="530" class="t label">Sonuç: altyapı çalıştı; held-out eval yok</text>
+
+  <!-- bottom explanation -->
+  <g filter="url(#shadow)"><rect x="54" y="536" width="1092" height="166" rx="18" class="card"/></g>
+  <text x="78" y="576" class="t h">Bu repo neden var?</text>
+  <g>
+    <circle cx="96" cy="620" r="18" fill="#0ea5e9"/><text x="90" y="627" class="t label">1</text>
+    <text x="126" y="616" class="t label">Kaynak</text><text x="126" y="640" class="m small">Modeli/checkpoint'i kopyalamak yerine GitHub / Drive / Colab kaynağına gider.</text>
+  </g>
+  <g>
+    <circle cx="96" cy="668" r="18" fill="#10b981"/><text x="90" y="675" class="t label">2</text>
+    <text x="126" y="664" class="t label">Kanıt</text><text x="126" y="688" class="m small">Training loss, held-out eval, PoC ve partial koşular birbirinden açıkça ayrılır.</text>
+  </g>
+  <rect x="760" y="592" width="350" height="80" rx="16" fill="#111c34" stroke="#475569"/>
+  <text x="785" y="622" class="t label">Ana çıkarım</text>
+  <text x="785" y="648" class="m small">Bigg pilotunda JEPA-off, aynı sürede daha hızlı</text>
+  <text x="785" y="670" class="m small">ve daha düşük test perplexity verdi.</text>
+
+  <text x="54" y="735" class="dim tiny">cebrailbagatarhan/model-training-results · sonuçlar bağlamıyla birlikte yayınlanır, büyük model ağırlıkları kaynakta kalır.</text>
+</svg>
