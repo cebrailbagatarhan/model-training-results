@@ -1,6 +1,6 @@
 # Turkmodel 6.08B — H100 400-step PoC
 
-**Durum:** `completed short training / no held-out eval`
+**Durum:** `completed short training / weights preserved / no held-out eval`
 
 ## Kaydedilmiş sonuç
 
@@ -19,4 +19,8 @@
 
 Yaklaşık **0.00215 token/parametre** görüldüğü için bu, 6B ölçekli modelin kalite eğitimi değil kısa bir altyapı/öğrenme PoC'sidir. Final training loss held-out kalite metriği olarak yorumlanmamalıdır.
 
-Kaynak veri: `cebrailbagatarhan/turkmodel/results/training_info.json`.
+## Artefakt doğrulaması
+
+GitHub'daki `training_info.json` ile Drive'daki final `training_info.json` aynı temel sonucu kaydediyor. Drive'da checkpoint-100/200/300/400 ile yaklaşık **12.17 GB** final `model.safetensors` bulunuyor. Binary ağırlık public sonuç reposuna taşınmadı.
+
+Kaynak veri: `cebrailbagatarhan/turkmodel/results/training_info.json` + özel Drive artefakt envanteri.
