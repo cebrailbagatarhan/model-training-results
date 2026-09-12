@@ -1,5 +1,9 @@
 # Bigg
 
+<p align="center">
+  <img src="../../assets/model-cards/bigg-50m.svg" width="100%" alt="Bigg 50M görsel sonuç kartı" />
+</p>
+
 Bu klasör Bigg model ailesinin deneysel sürümlerini ve karşılaştırma kayıtlarını toplar.
 
 ## Mevcut sürümler
@@ -22,3 +26,5 @@ Bu klasör Bigg model ailesinin deneysel sürümlerini ve karşılaştırma kay�
 - Kontrollü benchmark henüz tamamlanmadı.
 
 Ayrıntılı deney kayıtları için [`../../EXPERIMENT_INDEX.md`](../../EXPERIMENT_INDEX.md) dosyasına bakın.
+
+Tüm görsel kartlar: [`../../MODEL_VISUALS.md`](../../MODEL_VISUALS.md)
