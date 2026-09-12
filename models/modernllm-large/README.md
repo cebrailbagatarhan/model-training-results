@@ -1,5 +1,9 @@
 # ModernLLM-Large
 
+<p align="center">
+  <img src="../../assets/model-cards/modernllm-large.svg" width="100%" alt="ModernLLM-Large görsel sonuç kartı" />
+</p>
+
 **Durum:** `partial / artifact-preserved`
 
 Özel PyTorch decoder-only Transformer deneyi. Kaynak çalışma `cebrailbagatarhan/yapay-zeka-sistemi` deposunda; ayrıca Google Drive'da model artefaktları korunuyor.
@@ -25,3 +29,5 @@ Drive'da `trained_model` altında yaklaşık **4.52 GB `model.pt`**, model/confi
 Drive metadata'sı `pretrain`, `sft`, `cot` aşamalarını kaydediyor; ancak commit edilmiş notebook günlüklerinde kesintiler, OOM ve tamamlanmamış koşular bulunduğu için bu modeli **tamamlanmış/validasyonu yapılmış final model** olarak etiketlemiyoruz.
 
 Ayrıntılı deney kaydı: [`../../experiments/modernllm-large-h100-partial/`](../../experiments/modernllm-large-h100-partial/)
+
+Tüm görsel kartlar: [`../../MODEL_VISUALS.md`](../../MODEL_VISUALS.md)
