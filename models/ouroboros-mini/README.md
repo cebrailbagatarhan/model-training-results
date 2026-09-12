@@ -1,5 +1,9 @@
 # Ouroboros-Mini
 
+<p align="center">
+  <img src="../../assets/model-cards/ouroboros-mini.svg" width="100%" alt="Ouroboros-Mini görsel sonuç kartı" />
+</p>
+
 **Durum:** `experimental / notebook-only evidence`
 
 Qwen2.5-1.5B-Instruct tabanında, epistemik bütünlük ve kullanıcı baskısına direnç fikrini GRPO ile denemek için hazırlanmış Colab çalışması.
@@ -17,3 +21,5 @@ Qwen2.5-1.5B-Instruct tabanında, epistemik bütünlük ve kullanıcı baskısı
 Notebook çıktılarında veri sayısı konusunda tutarsızlık var: veri oluşturma çıktısı **1,592 örnek (%37 baskılı)** derken final özet hücresi **152 örnek** yazıyor. Bu nedenle deney temiz bir yeniden çalıştırma yapılana kadar kesin/reprodüksiyon-ready sayılmıyor.
 
 Ayrıntılar: [`../../experiments/ouroboros-mini-grpo/`](../../experiments/ouroboros-mini-grpo/)
+
+Tüm görsel kartlar: [`../../MODEL_VISUALS.md`](../../MODEL_VISUALS.md)
