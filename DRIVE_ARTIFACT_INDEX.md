@@ -1,19 +1,19 @@
-# Drive / Colab Artefakt Envanteri
+# Drive / Colab Kaynak İndeksi
 
-Bu liste Google Drive/Colab'da doğrulanan **model eğitimiyle ilgili** artefaktların sanitize edilmiş envanteridir. Drive dosya kimlikleri, özel bağlantılar ve credential'lar public edilmez.
+Bu dosya Google Drive/Colab'da bulunan model ve eğitim çalışmalarının **kaynak bağlantılarını** tutar. Model ağırlıkları, checkpoint binary'leri ve notebook dosyaları bu sonuç deposuna kopyalanmaz.
 
-| Çalışma | Drive/Colab'da görülenler | Public sonuç kaydı |
+| Çalışma | Kaynak | Sonuç kaydı |
 |---|---|---|
-| Turkish Qwen2.5-7B QLoRA | `lora/`, ~40.4MB adapter, tokenizer/config; checkpoint-50/100/150/200 | `experiments/turkish-qwen2.5-7b-qlora-200step/` |
-| ModernLLM-Large | `trained_model/`, ~4.52GB `model.pt`, config/model_info/training_info, tokenizer | `experiments/modernllm-large-h100-partial/` |
-| Turkmodel 6.08B / LLM_Training | checkpoint-100/200/300/400, `final_model/`, ~12.17GB `model.safetensors`, tokenizer/config/training_info | `experiments/turkmodel-6.08b-h100-400step/` |
-| Ouroboros-Mini | çalıştırılmış `Ouroboros_Mini.ipynb`; notebook içinde mini eval sonuçları | `experiments/ouroboros-mini-grpo/` |
-| ModernLLM Colab | çalıştırılmış `modern_llm_training.ipynb` kopyası | ModernLLM partial deney kaydına işlendi |
-| Turkish LLM Fine-Tuning | birden fazla `Turkish_LLM_FineTuning.ipynb`; en güncel tamamlanmış 200-step koşu arşivlendi | Qwen QLoRA deney kaydına işlendi |
+| Turkish Qwen2.5-7B QLoRA | [Drive/Colab kaynağı](https://drive.google.com/drive/folders/1VQmfjLOYuUbEpMFXD2vUQjEnnfYoqGRm) | `experiments/turkish-qwen2.5-7b-qlora-200step/` |
+| ModernLLM-Large | [Drive kaynağı](https://drive.google.com/drive/folders/1p5Qb6y53WBHlpR0qN5R6phcJpg6-RM0c) · [GitHub kodu](https://github.com/cebrailbagatarhan/yapay-zeka-sistemi) | `experiments/modernllm-large-h100-partial/` |
+| Turkmodel 6.08B / LLM_Training | [Drive kaynağı](https://drive.google.com/drive/folders/164kK-Jk7hR5AkC2bSeJbJtqkH1CPZFA7) · [GitHub kodu](https://github.com/cebrailbagatarhan/turkmodel) | `experiments/turkmodel-6.08b-h100-400step/` |
+| Ouroboros-Mini | [Colab notebook](https://colab.research.google.com/drive/1n8sVpfzwGwNgH_dAG4dlf8cyB6jzrdAk) | `experiments/ouroboros-mini-grpo/` |
+| ModernLLM Colab | [Drive klasörü](https://drive.google.com/drive/folders/1p5Qb6y53WBHlpR0qN5R6phcJpg6-RM0c) | ModernLLM partial kaydına işlendi |
+| Turkish LLM Fine-Tuning | [Qwen Drive/Colab klasörü](https://drive.google.com/drive/folders/1VQmfjLOYuUbEpMFXD2vUQjEnnfYoqGRm) | Qwen QLoRA kaydına işlendi |
 
-## Bilinçli olarak kopyalanmayanlar
+## Politika
 
-- Çok büyük model/checkpoint binary dosyaları: public repoya otomatik taşınmadı; yalnızca varlık, boyut ve checkpoint envanteri kaydedildi.
-- Secret/token/credential içerebilecek notebook hücreleri: yayınlanmadı.
-- `abalone_colab_usage.ipynb`: model sonucu değil Colab kullanım/örnek notebook'u; sonuç arşivine model deneyi olarak eklenmedi.
-- Boş/untitled veya yalnızca kurulum testi içeren notebooklar: ayrı model sonucu kanıtı olmadıkça arşive alınmadı.
+- Model/checkpoint binary dosyaları bu GitHub deposuna taşınmaz.
+- Sonuç deposunda yalnızca kaynak bağlantısı, deney özeti ve doğrulanmış metrikler tutulur.
+- Drive/Colab bağlantısı paylaşılması dosyanın erişim iznini değiştirmez; özel kaynaklar özel kalır.
+- Secret/token/credential içeren içerikler buraya kopyalanmaz.
