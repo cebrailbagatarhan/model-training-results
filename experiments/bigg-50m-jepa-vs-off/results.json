@@ -1,0 +1,34 @@
+{
+  "experiment": "bigg-50m-jepa-vs-off",
+  "date": "2026-09-12",
+  "budget": {"type": "wall_clock_seconds", "target_per_mode": 600},
+  "seed": 42,
+  "results": [
+    {
+      "mode": "off",
+      "steps": 1258,
+      "training_tokens": 5152768,
+      "train_seconds": 600.229693,
+      "tokens_per_second": 8584.660271,
+      "final_val_nll": 5.6797,
+      "final_val_perplexity": 292.87,
+      "test_nll": 5.607873,
+      "test_perplexity": 272.563981,
+      "peak_allocated_gb": 1.470829
+    },
+    {
+      "mode": "legacy",
+      "steps": 968,
+      "training_tokens": 3964928,
+      "train_seconds": 600.040766,
+      "tokens_per_second": 6607.764377,
+      "final_val_nll": 5.8932,
+      "final_val_perplexity": 362.56,
+      "test_nll": 5.837443,
+      "test_perplexity": 342.901316,
+      "peak_allocated_gb": 1.679554
+    }
+  ],
+  "winner_under_equal_wall_clock": "off",
+  "caveat": "Single-seed short pilot; do not generalize beyond this protocol without replication."
+}
