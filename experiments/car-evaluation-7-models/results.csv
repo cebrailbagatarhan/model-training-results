@@ -1,0 +1,8 @@
+model,test_accuracy_percent,cv_mean_percent,cv_std_percent
+Decision Tree,98.55,97.10,1.41
+Random Forest,98.27,96.31,1.29
+Gradient Boosting,97.98,97.97,0.93
+SVM,92.77,88.71,1.00
+K-Nearest Neighbors,90.75,88.28,1.47
+Logistic Regression,69.08,69.54,0.65
+Naive Bayes,64.16,64.62,2.71
