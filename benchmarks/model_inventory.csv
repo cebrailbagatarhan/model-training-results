@@ -1,0 +1,11 @@
+model,family,scale,status,primary_metric,artifact_status,source_type
+Bigg 50M JEPA-off,causal LM,48.1M trainable,completed,test_nll=5.607873,not mirrored,GitHub executed notebook
+Bigg 50M legacy JEPA,causal LM + JEPA,48.6M trainable,completed,test_nll=5.837443,not mirrored,GitHub executed notebook
+Bigg 50M V4.1-Flash-inspired,CED/MoE/Engram-style,50M target,pending,no result yet,source branch only,GitHub
+Turkish Qwen2.5-7B QLoRA,Qwen SFT,7B base / 20.2M trainable,completed training no eval,train_loss=0.9459,LoRA adapter in Drive,Drive/Colab
+ModernLLM-Large,custom decoder LM,1.129B,partial,no valid final benchmark,4.52GB model.pt in Drive,Drive + GitHub
+Ouroboros-Mini,Qwen GRPO,1.54B base,experimental,EIS=0.950 on 20+20 mini eval,not mirrored,Drive/Colab
+Turkmodel TR-EN,Llama-style dense LM,6.083B,short PoC,train_loss=4.78736,12.17GB final safetensors + checkpoints in Drive,Drive + GitHub
+nanochat Windows CPU,nanochat small LM,17M/61M/92M presets,self-reported,medium loss 5.79->2.37,source repo only,GitHub README
+Car Evaluation ML,classical ML,7 algorithms,completed,best test accuracy=98.55%,models in source repo,GitHub
+Turkish BPE Tokenizer,tokenizer,128k vocab,trained,no benchmark archived,tokenizer in source repo,GitHub
