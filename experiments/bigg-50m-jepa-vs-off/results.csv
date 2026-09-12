@@ -1,0 +1,3 @@
+mode,seed,steps,training_tokens,train_seconds,tokens_per_second,final_val_nll,final_val_perplexity,test_nll,test_perplexity,peak_allocated_gb
+off,42,1258,5152768,600.229693,8584.660271,5.6797,292.87,5.607873,272.563981,1.470829
+legacy,42,968,3964928,600.040766,6607.764377,5.8932,362.56,5.837443,342.901316,1.679554
