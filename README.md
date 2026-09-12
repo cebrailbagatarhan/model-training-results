@@ -1,63 +1,90 @@
 # Model Eğitimleri, Deneyler ve Sonuçlar
 
-Bu depo; farklı model sürümlerinin, Colab/Drive eğitim artefaktlarının, GitHub deneylerinin, kullanılan veri/ortam bilgilerinin ve ölçülen sonuçların tek yerde karşılaştırılabilir biçimde tutulması için oluşturulmuştur.
+Bu depo; GitHub, Google Drive ve Colab üzerinde dağınık duran model eğitimlerini **tek yerde anlaşılır, karşılaştırılabilir ve kaynak bağlantılarıyla doğrulanabilir** hale getirmek için oluşturuldu.
 
-> Amaç: yalnızca en iyi sonucu göstermek değil; **hangi model + hangi veri + hangi ayar + hangi donanım ile hangi sonucun alındığını** ve sonucun ne kadar güvenilir olduğunu açıkça kaydetmek.
+<p align="center">
+  <img src="assets/model-results-overview.svg" width="100%" alt="Model eğitimleri ve deney sonuçları görsel özeti" />
+</p>
+
+## Kısaca ne yaptık?
+
+Farklı zamanlarda yapılmış model eğitimlerini ve deneyleri taradık; hangi modelin kullanıldığını, donanımı, eğitim bütçesini, görülebilen metrikleri ve deneyin gerçekten ne kadar tamamlanmış olduğunu ayırdık. Sonra bunları ortak bir yapıya taşıdık.
+
+Buradaki amaç **model ağırlıklarını yeniden yüklemek değil**. Model/checkpoint dosyası nerede duruyorsa orada kalıyor; bu repo sonuçları, deney notlarını ve **asıl GitHub / Drive / Colab kaynak linklerini** bir araya getiriyor.
+
+## Şu ana kadar ne öğrendik?
+
+### 1. Bigg 50M pilotunda JEPA-off daha iyi çıktı
+
+Aynı **600 saniyelik wall-clock bütçesinde**, seed `42` ile yapılan kontrollü pilotta JEPA kapalı sürüm (`off`) daha hızlı çalıştı ve daha iyi test sonucu verdi.
+
+| Mod | Süre (s) | Eğitim tokenı | Token/s | Test NLL ↓ | Test PPL ↓ | Peak VRAM (GB) |
+|---|---:|---:|---:|---:|---:|---:|
+| **JEPA off** | 600.23 | 5,152,768 | **8,584.66** | **5.607873** | **272.563981** | **1.470829** |
+| legacy JEPA | 600.04 | 3,964,928 | 6,607.76 | 5.837443 | 342.901316 | 1.679554 |
+
+Bu koşulda `off`, aynı sürede yaklaşık **%30 daha fazla token** işledi ve test perplexity yaklaşık **%20.5 daha düşük** oldu. Legacy JEPA erken token bütçesinde kısa süreli sample-efficiency avantajı gösterdi ancak eğitim ilerledikçe bu avantaj kayboldu.
+
+> Bu sonuç “JEPA genel olarak kötü” anlamına gelmez. Bu, yaklaşık 50M ölçekli, tek seed'li ve mevcut legacy JEPA implementasyonuna ait kontrollü pilot sonucudur.
+
+Ayrıntılar: [`experiments/bigg-50m-jepa-vs-off/`](experiments/bigg-50m-jepa-vs-off/)
+
+### 2. Turkish Qwen2.5-7B QLoRA eğitimi tamamlandı, fakat held-out eval eksik
+
+Türkçe SFT için Qwen2.5-7B-Instruct tabanlı QLoRA koşusunda 200 step tamamlanmış eğitim kaydı ve adapter/checkpoint kaynakları var. Ortalama training loss yaklaşık `0.9459`. Ancak bağımsız held-out değerlendirme bulunmadığı için bunu model kalitesinin nihai kanıtı olarak sunmuyoruz.
+
+Kaynak ve deney: [`models/turkish-qwen2.5-7b-qlora/`](models/turkish-qwen2.5-7b-qlora/) · [`experiments/turkish-qwen2.5-7b-qlora-200step/`](experiments/turkish-qwen2.5-7b-qlora-200step/)
+
+### 3. Turkmodel 6.08B koşusu çalıştı ama çok kısa bir PoC
+
+6.083B parametreli TR/EN model için `1× NVIDIA H100 80GB HBM3` üzerinde 400 step, yaklaşık 13.1M token ve `4.78736` final training loss kaydı var. Bu ölçeğe göre eğitim bütçesi çok küçük olduğu için sonuç **altyapı/öğrenme PoC'si** olarak tutuluyor; held-out eval yok.
+
+Kaynak ve deney: [`models/turkmodel-6.08b/`](models/turkmodel-6.08b/) · [`experiments/turkmodel-6.08b-h100-400step/`](experiments/turkmodel-6.08b-h100-400step/)
+
+### 4. ModernLLM-Large için gerçek model artefaktı var, fakat deneyler kısmi
+
+ModernLLM-Large yaklaşık `1.129B` parametreli özel decoder-only Transformer. Drive'da model artefaktı ve H100 üzerinde çeşitli pretrain/SFT/CoT denemeleri bulunuyor; ancak kesintiler ve eksik final benchmark nedeniyle sonuç `partial` olarak işaretlendi.
+
+Kaynak ve deney: [`models/modernllm-large/`](models/modernllm-large/) · [`experiments/modernllm-large-h100-partial/`](experiments/modernllm-large-h100-partial/)
 
 ## Envanter özeti
 
 | Model/çalışma | Durum | Öne çıkan kayıt |
 |---|---|---|
-| Bigg 50M JEPA-off vs legacy | completed | JEPA-off: test NLL 5.607873, PPL 272.56 |
-| Bigg V4.1-Flash-inspired | pending | JEPA kaldırıldı; kontrollü benchmark henüz yok |
-| Turkish Qwen2.5-7B QLoRA | training completed / no eval | 200 step, train loss 0.9459; adapter Drive'da |
-| ModernLLM-Large 1.129B | partial | Kısmi H100 koşuları; ~4.52GB model artefaktı Drive'da |
-| Ouroboros-Mini | experimental | Mini eval EIS 0.950; notebook veri sayısı tutarsız |
-| Turkmodel TR-EN 6.083B | short PoC | 400 step, train loss 4.78736; ~12.17GB final weights Drive'da |
-| nanochat Windows CPU | self-reported | Medium: loss 5.79 → 2.37; ham log doğrulaması yok |
+| Bigg 50M JEPA-off vs legacy | completed | JEPA-off: test NLL **5.607873**, PPL **272.56** |
+| Bigg V4.1-Flash-inspired | pending | Yeni altyapı; kontrollü benchmark henüz yok |
+| Turkish Qwen2.5-7B QLoRA | completed training / no eval | 200 step, avg train loss ~0.9459 |
+| ModernLLM-Large 1.129B | partial | Kısmi H100 koşuları; final geçerli benchmark yok |
+| Ouroboros-Mini | experimental | Mini eval EIS 0.950; provenance notları var |
+| Turkmodel TR-EN 6.083B | short PoC | 400 step, train loss 4.78736 |
+| nanochat Windows CPU | self-reported | Medium README sonucu 5.79 → 2.37 loss |
 | Car Evaluation ML | completed | Decision Tree test accuracy %98.55 |
-| Turkish BPE Tokenizer | trained tokenizer | 128k vocab, ~150k Türkçe Wikipedia makalesi |
+| Turkish BPE Tokenizer | trained tokenizer | 128k vocab; benchmark yok |
 
-Tam liste: [`MODEL_INDEX.md`](MODEL_INDEX.md) · Deneyler: [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) · Drive/Colab envanteri: [`DRIVE_ARTIFACT_INDEX.md`](DRIVE_ARTIFACT_INDEX.md) · Makine-okunur envanter: [`benchmarks/model_inventory.csv`](benchmarks/model_inventory.csv)
+Tam liste: [`MODEL_INDEX.md`](MODEL_INDEX.md) · Deneyler: [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) · Kaynaklar: [`DRIVE_ARTIFACT_INDEX.md`](DRIVE_ARTIFACT_INDEX.md) · Makine-okunur envanter: [`benchmarks/model_inventory.csv`](benchmarks/model_inventory.csv)
 
-## Bigg 50M — JEPA legacy vs off
+## Repo nasıl okunmalı?
 
-Eşit **600 saniyelik wall-clock bütçesinde**, seed `42` ile yapılan pilotta JEPA kapalı sürüm (`off`) daha iyi sonuç verdi.
+```text
+model-training-results/
+├── models/          # Model kartları: ne kullandık?
+├── experiments/     # Deneyler: nasıl eğittik, ne çıktı?
+├── benchmarks/      # Karşılaştırılabilir özet tablolar
+├── datasets/        # Veri kaynakları ve split notları
+├── environments/    # GPU / CUDA / PyTorch / ortam bilgileri
+├── methodology/     # Değerlendirme ve tekrar üretilebilirlik kuralları
+├── assets/          # Görsel özetler
+└── *_INDEX.md       # Model, deney ve kaynak indeksleri
+```
 
-| Mod | Süre (s) | Step | Eğitim tokenı | Token/s | Test NLL ↓ | Test PPL ↓ | Peak VRAM (GB) |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| off | 600.23 | 1258 | 5,152,768 | 8,584.66 | **5.607873** | **272.563981** | **1.470829** |
-| legacy JEPA | 600.04 | 968 | 3,964,928 | 6,607.76 | 5.837443 | 342.901316 | 1.679554 |
+## Kaynak politikası
 
-`off`, aynı sürede yaklaşık %30 daha fazla token işledi; test NLL ve perplexity de daha iyi çıktı. Ayrıntılar: [`experiments/bigg-50m-jepa-vs-off/`](experiments/bigg-50m-jepa-vs-off/)
+Model veya checkpoint dosyalarını gereksiz yere bu repoya kopyalamıyoruz. Her kayıt mümkün olduğunca **orijinal GitHub repo, Drive klasörü veya Colab notebook'una bağlantı** verir. Büyük binary dosyalar kaynağında kalır.
 
-## Drive/Colab artefakt politikası
+Public repoya credential, erişim anahtarı veya secret içeren notebook hücreleri taşınmaz. Training loss ile held-out eval birbirinden ayrılır; kesintili veya doğrulanmamış koşular `partial`, `experimental` ya da `self-reported` olarak açıkça etiketlenir.
 
-Drive'da doğrulanan büyük checkpoint/model dosyalarının varlığı, boyutu ve koşuyla ilişkisi kaydedilir; çok büyük binary ağırlıklar bu GitHub sonuç deposuna otomatik kopyalanmaz. Public repoya yalnızca güvenli config/metric/provenance bilgisi alınır. Credential, erişim anahtarı ve secret içeren notebook hücreleri yayınlanmaz.
+## Sonraki hedef
 
-## Depo düzeni
+Bigg için mevcut ölçülebilir baseline: **test NLL 5.607873 / PPL 272.563981**. Yeni V4.1-Flash-inspired mimari ve gelecekteki diğer modeller aynı veri/bütçe protokolünde bu baseline'a karşı değerlendirilecek.
 
-- [`MODEL_INDEX.md`](MODEL_INDEX.md) — kayıtlı modeller ve sürümler
-- [`EXPERIMENT_INDEX.md`](EXPERIMENT_INDEX.md) — deney listesi ve durumları
-- [`DRIVE_ARTIFACT_INDEX.md`](DRIVE_ARTIFACT_INDEX.md) — sanitize edilmiş Drive/Colab artefakt envanteri
-- [`models/`](models/) — model/sürüm kartları
-- [`experiments/`](experiments/) — deney konfigürasyonları, ham/özet sonuçlar ve analizler
-- [`benchmarks/`](benchmarks/) — karşılaştırma ve envanter tabloları
-- [`datasets/`](datasets/) — kullanılan veri kaynaklarının/splitlerin kaydı
-- [`environments/`](environments/) — GPU, CUDA, PyTorch ve çalışma ortamı notları
-- [`methodology/`](methodology/) — değerlendirme ve tekrarlanabilirlik kuralları
-- [`templates/`](templates/) — yeni deney eklemek için şablonlar
-
-## Yayın ilkeleri
-
-1. Sonuçlar mümkün olduğunda ham `CSV/JSON` ile birlikte yayınlanır.
-2. Training loss ile held-out eval metrikleri açıkça ayrılır.
-3. Aynı deney ailesindeki veri, seed ve bütçe farkları belirtilir.
-4. Wall-clock ve token-budget karşılaştırmaları birbirinden ayrılır.
-5. Tek-seed/küçük eval sonuçları kesin üstünlük olarak sunulmaz.
-6. Kesintili, OOM olmuş veya provenance sorunu olan koşular `partial/experimental` olarak tutulur.
-7. Henüz çalıştırılmamış mimariler sonuç gibi gösterilmez; `planned/pending` olarak işaretlenir.
-
-## Lisans / kaynak kod
-
-Bu depo ağırlıklı olarak **deney sonuçları ve metodoloji** içindir. Model kaynak kodu ayrı geliştirme depolarında tutulabilir. Buradaki sayılar yalnızca ilgili deney kayıtlarında belirtilen koşullar için geçerlidir.
+Bu repo böylece yalnızca “hangi modeli yaptık?” sorusuna değil, **“hangi değişiklik gerçekten işe yaradı?”** sorusuna da cevap verecek.
