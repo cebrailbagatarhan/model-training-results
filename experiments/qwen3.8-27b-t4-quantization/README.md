@@ -6,6 +6,12 @@
 
 Bu deneyin amacı, yaklaşık 28B parametreli `Qwen/Qwen3.8-27B` modelini düşük-bit quantization ile 16 GB NVIDIA T4 üzerinde çalıştırmanın sınırlarını ölçmektir.
 
+## Notebook
+
+- Colab notebook: `Qwen3_8_27B_T4_Quantization_Colab.ipynb`
+- Colab'da doğrudan aç: https://colab.research.google.com/github/cebrailbagatarhan/model-training-results/blob/main/experiments/qwen3.8-27b-t4-quantization/Qwen3_8_27B_T4_Quantization_Colab.ipynb
+- Drive kopyası: https://drive.google.com/file/d/1xEuTVwC_xn6EPF5H0fl1aK3EfezGHf2T/view
+
 ## Araştırma sorusu
 
 FP16 ağırlıkları teorik olarak yaklaşık 56 GB bellek gerektiren Qwen3.8-27B, 4-bit veya daha düşük quantization ile Colab T4 üzerinde kullanılabilir mi? Kullanılabiliyorsa bellek, hız ve çıktı kalitesi açısından en iyi denge hangi ayarda elde edilir?
