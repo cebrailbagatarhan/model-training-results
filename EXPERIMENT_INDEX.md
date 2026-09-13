@@ -2,6 +2,7 @@
 
 | Deney | Model | Bütçe | Seed | Durum | Ana sonuç |
 |---|---|---|---:|---|---|
+| [`qwen3.8-27b-t4-quantization`](experiments/qwen3.8-27b-t4-quantization/) | Qwen3.8-27B | Colab T4 / 16 GB VRAM | — | planned | 4-bit NF4 ve daha düşük-bit varyantlarla T4 deployment sınırı ölçülecek |
 | [`bigg-50m-jepa-vs-off`](experiments/bigg-50m-jepa-vs-off/) | Bigg 50M | 600 s / mod | 42 | completed | JEPA off, eşit wall-clock'ta daha iyi NLL/PPL ve throughput verdi |
 | [`bigg-50m-v41-flash`](experiments/bigg-50m-v41-flash/) | Bigg 50M V4.1-Flash-inspired | plan: 600 s | 42 | pending | JEPA-off baseline'a karşı kontrollü kıyas yapılacak |
 | [`turkish-qwen2.5-7b-qlora-200step`](experiments/turkish-qwen2.5-7b-qlora-200step/) | Qwen2.5-7B-Instruct | 200 step / 9,042 s | 42 | completed training / no eval | Ortalama train loss 0.9459; final adapter Drive'da |
