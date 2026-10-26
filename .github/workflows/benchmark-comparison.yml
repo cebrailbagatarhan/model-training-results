@@ -1,0 +1,22 @@
+name: Benchmark comparison tests
+on:
+  push:
+    paths:
+      - 'benchmarks/compare.py'
+      - 'benchmarks/test_compare.py'
+      - '.github/workflows/benchmark-comparison.yml'
+  pull_request:
+    paths:
+      - 'benchmarks/compare.py'
+      - 'benchmarks/test_compare.py'
+      - '.github/workflows/benchmark-comparison.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s benchmarks -p 'test_compare.py' -v
+      - run: python -m py_compile benchmarks/compare.py benchmarks/test_compare.py
