@@ -1,0 +1,21 @@
+name: Model inventory CLI
+on:
+  pull_request:
+    paths:
+      - 'benchmarks/inventory.py'
+      - 'benchmarks/model_inventory.csv'
+      - 'tests/test_inventory.py'
+      - '.github/workflows/inventory.yml'
+  workflow_dispatch:
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Unit tests
+        run: python -m unittest discover -s tests -p 'test_inventory.py' -v
+      - name: Validate repository inventory
+        run: python -m benchmarks.inventory --json > /dev/null
