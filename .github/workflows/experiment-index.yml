@@ -1,0 +1,20 @@
+name: Experiment index integrity
+on:
+  pull_request:
+    paths:
+      - 'EXPERIMENT_INDEX.md'
+      - 'experiments/**'
+      - 'scripts/check_experiment_index.py'
+      - 'tests/test_check_experiment_index.py'
+      - '.github/workflows/experiment-index.yml'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s tests -p 'test_check_experiment_index.py' -v
+      - run: python -m scripts.check_experiment_index --json
