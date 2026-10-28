@@ -51,14 +51,21 @@ def main(argv=None):
     parser.add_argument("--status", help="Filter by status (substring)")
     parser.add_argument("--family", help="Filter by family (substring)")
     parser.add_argument("--search", help="Search all columns (substring)")
+    parser.add_argument("--sort-by", choices=("model", "family", "status"),
+                        help="Sort matching models by a text column (default: CSV order)")
+    parser.add_argument("--descending", action="store_true", help="Reverse --sort-by order")
     parser.add_argument("--json", action="store_true", help="Machine-readable report")
     args = parser.parse_args(argv)
+    if args.descending and not args.sort_by:
+        parser.error("--descending requires --sort-by")
     try:
         rows = load_inventory(args.file)
     except (OSError, UnicodeError, csv.Error, ValueError) as exc:
         print(f"Inventory error: {exc}", file=sys.stderr)
         return 2
     selected = filter_inventory(rows, status=args.status, family=args.family, search=args.search)
+    if args.sort_by:
+        selected.sort(key=lambda row: row[args.sort_by].casefold(), reverse=args.descending)
     counts = dict(sorted(Counter(row["status"] for row in selected).items()))
     if args.json:
         print(json.dumps({"total": len(rows), "matched": len(selected), "statuses": counts,
