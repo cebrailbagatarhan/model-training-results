@@ -54,6 +54,26 @@ class ExperimentIndexTests(unittest.TestCase):
             self.assertEqual(main(["--root", str(self.root), "--json"]), 0)
         self.assertTrue(json.loads(output.getvalue())["ok"])
 
+    def test_status_counts_from_index_column(self):
+        (self.root / "experiments" / "second").mkdir()
+        (self.root / "experiments" / "second" / "README.md").write_text("# Second\n")
+        self.write_index(
+            "| [`first`](experiments/first/) | M | completed |\n"
+            "| [`second`](experiments/second/) | M | partial |\n"
+        )
+        report = audit(self.root)
+        self.assertTrue(report["ok"])
+        self.assertEqual(report["status_counts"], {"completed": 1, "partial": 1})
+
+    def test_status_counts_ignore_malformed_rows(self):
+        self.write_index(
+            "| [`first`](experiments/first/) | M | completed |\n"
+            "| [bad](experiments/../secret/) | M | partial |\n"
+        )
+        report = audit(self.root)
+        self.assertEqual(report["status_counts"], {"completed": 1})
+        self.assertEqual(report["malformed_rows"], [6])
+
 
 if __name__ == "__main__":
     unittest.main()
