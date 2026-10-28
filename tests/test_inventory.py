@@ -63,6 +63,35 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(payload["total"], 2)
         self.assertEqual(payload["statuses"], {"pending": 1})
 
+    def test_sort_by_model_preserves_default_and_supports_descending(self):
+        original = self.path.read_text(encoding="utf-8")
+        self.path.write_text(original.replace("Alpha,", "zulu,").replace("Beta,", "alpha,"), encoding="utf-8")
+        for options, expected in (
+            ([], ["zulu", "alpha"]),
+            (["--sort-by", "model"], ["alpha", "zulu"]),
+            (["--sort-by", "model", "--descending"], ["zulu", "alpha"]),
+        ):
+            with self.subTest(options=options):
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    self.assertEqual(main(["--file", str(self.path), "--json", *options]), 0)
+                self.assertEqual([row["model"] for row in json.loads(output.getvalue())["models"]], expected)
+
+    def test_sort_by_status_keeps_original_order_for_ties(self):
+        with self.path.open("a", encoding="utf-8") as handle:
+            handle.write("Gamma,causal LM,80M,completed,test_nll=4,local,GitHub\\n")
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            self.assertEqual(main(["--file", str(self.path), "--sort-by", "status", "--json"]), 0)
+        self.assertEqual([row["model"] for row in json.loads(output.getvalue())["models"]],
+                         ["Alpha", "Gamma", "Beta"])
+
+    def test_descending_requires_sort_by(self):
+        with contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as error:
+                main(["--file", str(self.path), "--descending"])
+        self.assertEqual(error.exception.code, 2)
+
     def test_missing_file_error_code(self):
         with contextlib.redirect_stderr(io.StringIO()):
             self.assertEqual(main(["--file", str(self.path) + ".missing"]), 2)
