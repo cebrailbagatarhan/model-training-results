@@ -79,7 +79,7 @@ class InventoryTests(unittest.TestCase):
 
     def test_sort_by_status_keeps_original_order_for_ties(self):
         with self.path.open("a", encoding="utf-8") as handle:
-            handle.write("Gamma,causal LM,80M,completed,test_nll=4,local,GitHub\\n")
+            handle.write("Gamma,causal LM,80M,completed,test_nll=4,local,GitHub\n")
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
             self.assertEqual(main(["--file", str(self.path), "--sort-by", "status", "--json"]), 0)
