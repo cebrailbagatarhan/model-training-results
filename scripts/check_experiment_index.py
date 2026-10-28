@@ -20,7 +20,7 @@ def audit(root: Path) -> dict:
     malformed_rows = []
     status_counts = Counter()
     header = next(
-        (line for line in index.splitlines() if line.startswith("|") and "Durum" in line.split("|")),
+        (line for line in index.splitlines() if line.startswith("|") and "Durum" in [cell.strip() for cell in line.split("|")]),
         None,
     )
     # Locate the status column by its heading so small index schema changes
