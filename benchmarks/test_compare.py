@@ -44,6 +44,25 @@ class CompareTests(unittest.TestCase):
             self.assertEqual(main(["--csv", str(self.path), "--json"]), 0)
         self.assertEqual(json.loads(output.getvalue())[0]["ranked"][0]["variant"], "B")
 
+    def test_minimum_cohort_size_filters_two_run_groups(self):
+        self.assertEqual(len(comparable_groups(self.path, min_runs=2)), 1)
+        self.assertEqual(comparable_groups(self.path, min_runs=3), [])
+
+    def test_invalid_minimum_cohort_size_rejected(self):
+        for value in (0, 1, -2, 2.5, True):
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "at least 2"):
+                comparable_groups(self.path, min_runs=value)
+
+    def test_cli_min_runs_json_and_invalid_threshold(self):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            self.assertEqual(main(["--csv", str(self.path), "--min-runs", "3", "--json"]), 0)
+        self.assertEqual(json.loads(output.getvalue()), [])
+        with contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as caught:
+                main(["--csv", str(self.path), "--min-runs", "1"])
+        self.assertEqual(caught.exception.code, 2)
+
     def test_invalid_schema(self):
         self.path.write_text("model,variant\\nM,A\\n", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "missing required columns"):
