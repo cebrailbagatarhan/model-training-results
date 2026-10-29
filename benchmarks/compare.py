@@ -11,7 +11,9 @@ METRICS = {"test_nll": False, "test_perplexity": False, "tokens_per_second": Tru
 GROUP_KEYS = ("experiment", "budget_type", "budget_value_s", "seed")
 
 
-def comparable_groups(path, metric="test_nll", experiment=None):
+def comparable_groups(path, metric="test_nll", experiment=None, min_runs=2):
+    if isinstance(min_runs, bool) or not isinstance(min_runs, int) or min_runs < 2:
+        raise ValueError("Minimum cohort size must be at least 2")
     if metric not in METRICS:
         raise ValueError(f"Unsupported metric: {metric}")
     groups = defaultdict(list)
@@ -36,7 +38,7 @@ def comparable_groups(path, metric="test_nll", experiment=None):
     return [
         {"cohort": dict(zip(GROUP_KEYS, key)), "metric": metric,
          "ranked": sorted(rows, key=lambda item: item["value"], reverse=METRICS[metric])}
-        for key, rows in sorted(groups.items()) if len(rows) >= 2
+        for key, rows in sorted(groups.items()) if len(rows) >= min_runs
     ]
 
 
@@ -46,9 +48,10 @@ def main(argv=None):
     parser.add_argument("--experiment", help="Restrict to one experiment")
     parser.add_argument("--metric", choices=sorted(METRICS), default="test_nll")
     parser.add_argument("--json", action="store_true", help="Emit machine-readable output")
+    parser.add_argument("--min-runs", type=int, default=2, help="Minimum completed runs per comparable cohort (at least 2)")
     args = parser.parse_args(argv)
     try:
-        groups = comparable_groups(args.csv, args.metric, args.experiment)
+        groups = comparable_groups(args.csv, args.metric, args.experiment, min_runs=args.min_runs)
     except (OSError, ValueError) as exc:
         parser.exit(2, f"Cannot read benchmarks: {exc}\\n")
     if args.json:
